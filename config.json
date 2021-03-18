@@ -7,18 +7,21 @@
     "channels": {
         "VA3FEZ": {
             "name": "VA3FEZ - Repeater",
-            "frequency": "444.1M",
-            "mode": "nfm"
+            "frequency": "444.100M",
+            "mode": "fm",
+            "squelch": 0
         },
         "VE3GYQ": {
             "name": "VE3GYQ - Repeater",
-            "frequency": "145.35M",
-            "mode": "nfm"
+            "frequency": "145.350M",
+            "mode": "fm",
+            "squelch": 0
         },
         "VA3LON": {
             "name": "VA3LON - Repeater",
-            "frequency": "147.06M",
-            "mode": "nfm"
+            "frequency": "147.060M",
+            "mode": "fm",
+            "squelch": 0
         }
     },
     "default_channel": "VA3FEZ",

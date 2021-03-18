@@ -5,33 +5,21 @@ from typing import Optional
 import signal
 
 # Subprocesses used to handle data
-_rtl_fm_proc: Optional[subprocess.Popen] = None
-_sox_proc: Optional[subprocess.Popen] = None
-_cvlc_proc: Optional[subprocess.Popen] = None
+_stream_proc: Optional[subprocess.Popen] = None
 
 def stop_all():
-    global _rtl_fm_proc, _sox_proc, _cvlc_proc
+    global _stream_proc
 
-    for proc, name in [(_cvlc_proc, "cvlc"), (_sox_proc, "sox"), (_rtl_fm_proc, "rtl_fm")]:
+    for proc, name in [(_stream_proc, "rtl_fm")]:
         if proc:
             print(f"Sending SIGKILL to process: {name}")
             proc.send_signal(sig=signal.SIGKILL)
             proc.wait()
 
-def start_stream(frequency: str, mode: str):
-    global _rtl_fm_proc, _sox_proc, _cvlc_proc
+def start_stream(frequency: str, mode: str, squelch: int):
+    global _stream_proc_stream_proc
 
     # Begin rtl_fm
-    command = f"rtl_fm -g50 -f {frequency} -M {mode} -s 180k -E deemp".split(" ")
+    command = f"rtl_fm -g 50 -f {frequency} -M {mode} -s 48k -E deemp -A fast -l {squelch} | sox -traw -r 48k -es -b16 -c1 -V1 - -t mp3 - | cvlc - --sout '#standard{{access=http,mux=mp3}}' --http-host localhost"
     print(f"Spawning process: {command}")
-    _rtl_fm_proc = subprocess.Popen(command, stdout=subprocess.PIPE)
-
-    # Begin sox
-    command = f"sox -traw -r180k -es -b16 -c1 -V1 - -t flac -".split(" ")
-    print(f"Spawning process: {command}")
-    _sox_proc = subprocess.Popen(command, stdout=subprocess.PIPE, stdin=_rtl_fm_proc.stdout)
-
-    # Begin vlc
-    command = "cvlc - --sout '#standard{access=http,mux=ogg}' --http-host localhost".split(" ")
-    print(f"Spawning process: {command}")
-    _cvlc_proc = subprocess.Popen(command, stdin=_sox_proc.stdout)
+    _stream_proc = subprocess.Popen(command, stdout=subprocess.PIPE, shell=True)
