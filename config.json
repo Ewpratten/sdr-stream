@@ -1,0 +1,105 @@
+{
+    "metadata": {
+        "name": "VA3ZZA Timed Repeater Scanner",
+        "location": "London, Ontario Canada",
+        "description": "Monitoring a group of local VHF and UHF repeaters, switching between them at scheduled intervals."
+    },
+    "channels": {
+        "VA3FEZ": {
+            "name": "VA3FEZ - Repeater",
+            "frequency": "444.1M",
+            "mode": "nfm"
+        },
+        "VE3GYQ": {
+            "name": "VE3GYQ - Repeater",
+            "frequency": "145.35M",
+            "mode": "nfm"
+        },
+        "VA3LON": {
+            "name": "VA3LON - Repeater",
+            "frequency": "147.06M",
+            "mode": "nfm"
+        }
+    },
+    "default_channel": "VA3FEZ",
+    "schedule": [
+        {
+            "channel": "VE3GYQ",
+            "name": "JO Net",
+            "days": [
+                0,
+                1,
+                2,
+                3,
+                4,
+                5,
+                6
+            ],
+            "time": {
+                "start": "19:00",
+                "end": "20:00",
+                "utc": false
+            }
+        },
+        {
+            "channel": "VE3GYQ",
+            "name": "Coffee Net",
+            "days": [
+                2
+            ],
+            "time": {
+                "start": "10:00",
+                "end": "11:00",
+                "utc": false
+            }
+        },
+        {
+            "channel": "VE3GYQ",
+            "name": "Tech Net",
+            "days": [
+                4
+            ],
+            "time": {
+                "start": "20:00",
+                "end": "21:00",
+                "utc": false
+            }
+        },
+        {
+            "channel": "VA3LON",
+            "name": "LARC Net",
+            "days": [
+                1
+            ],
+            "time": {
+                "start": "20:00",
+                "end": "21:00",
+                "utc": false
+            }
+        },
+        {
+            "channel": "VA3LON",
+            "name": "Elmer Net",
+            "days": [
+                2
+            ],
+            "time": {
+                "start": "20:00",
+                "end": "21:00",
+                "utc": false
+            }
+        },
+        {
+            "channel": "VA3LON",
+            "name": "ARES Net",
+            "days": [
+                3
+            ],
+            "time": {
+                "start": "20:00",
+                "end": "21:00",
+                "utc": false
+            }
+        }
+    ]
+}
